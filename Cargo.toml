@@ -1,5 +1,5 @@
 [package]
-name = "super_minimal_ws_server"
+name = "brwoser_activity_checker"
 version = "0.1.0"
 edition = "2021"
 

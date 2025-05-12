@@ -1,4 +1,4 @@
-# WebSocket Status Tracker
+# Brwoser Activity Checker
 
 A minimal WebSocket server and client implementation for tracking and managing connection statuses.
 

@@ -1,15 +1,15 @@
+use brwoser_activity_checker::{set_status, Status, WsResponse};
 use std::io::Error as IoError;
 use std::net::TcpListener;
-use super_minimal_ws_server::{set_status, Status, WsResponse};
 use tungstenite::{accept, error::Error as WsError, Message};
 
 fn main() {
-    if let Err(e) = run_super_minimal_ws_server("8235") {
+    if let Err(e) = run_brwoser_activity_checker("8235") {
         eprintln!("❌ Server error: {}", e);
     }
 }
 
-pub fn run_super_minimal_ws_server(port: &str) -> Result<(), IoError> {
+pub fn run_brwoser_activity_checker(port: &str) -> Result<(), IoError> {
     let addr = format!("0.0.0.0:{}", port);
     let listener = TcpListener::bind(&addr)?;
     println!("🚀 Listening on ws://{}", addr);
