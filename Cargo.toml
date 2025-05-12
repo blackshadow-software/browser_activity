@@ -1,0 +1,10 @@
+[package]
+name = "super_minimal_ws_server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tungstenite = "0.26"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+once_cell = "1.21"

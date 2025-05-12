@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <input id="in" placeholder="Type…">
+    <button id="btn">Send</button>
+    <pre id="out"></pre>
+
+    <script>
+        const Status = Object.freeze({
+            ACTIVE: 'active',
+            SHARING: 'sharing',
+            INACTIVE: 'inactive',
+        });
+
+        const log = msg => {
+            document.getElementById("out").textContent += msg + "\n";
+        };
+
+        // Use localhost (or 127.0.0.1), not 0.0.0.0
+        const ws = new WebSocket("ws://localhost:8235");
+        ws.addEventListener("message", e => {
+            let msg;
+            try {
+                msg = JSON.parse(e.data);
+            } catch {
+                console.error("Invalid JSON:", e.data);
+                return;
+            }
+            switch (msg.status) {
+                case Status.ACTIVE:
+                    console.log("👉 Server says: ACTIVE");
+                    break;
+                case Status.SHARING:
+                    console.log("👉 Server says: SHARING");
+                    break;
+                case Status.INACTIVE:
+                    console.log("👉 Server says: INACTIVE");
+                    break;
+                default:
+                    console.warn("Unknown status:", msg.status);
+            }
+        });
+
+        document.getElementById("btn").onclick = () => {
+            const v = document.getElementById("in").value;
+            const r = v.trim() === "" ? Status.INACTIVE : Status.ACTIVE;
+            ws.send(JSON.stringify({ status: r }));
+            log("Sent: " + r);
+            document.getElementById("in").value = "";
+        };
+
+    </script>
+</body>
+
+</html>
